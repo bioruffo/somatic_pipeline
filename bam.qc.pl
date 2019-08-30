@@ -11,7 +11,7 @@ my $eof = <<EOF;
 
 perl $0 <sample> <bam> <interval.bed>
 
-统计bam文件的各种参数，例如覆盖度、平均测序深度等指标
+Statistics of various parameters of the bam file, such as coverage, average sequencing depth, etc.
 
 EOF
 
