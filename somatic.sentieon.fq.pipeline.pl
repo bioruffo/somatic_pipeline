@@ -16,30 +16,30 @@ my ($tumor,$normal,$t1,$t2,$n1,$n2,$bed,$part,$trim);
 my $eof = <<EOF;
 
 ----------------------------------------------------------
-	{体细胞突变检测流程}
-特点：
-1)使用sentieon TNscope流程，准确、高效、快速
-2)关联cosmic、www.cancergenomeinterpreter.org靶药数据库
-3)分析SV，常见的融合基因一目了然
-4)分析CNV，可检测拷贝数变异
+	{Somatic mutation detection process}
+Features:
+1) Accurate, efficient and fast using the sentieon TNscope process
+2) Associate cosmic, www.cancergenomeinterpreter.org target drug database
+3) Analysis of SV, common fusion genes at a glance
+4) Analyze CNV, detect copy number variation
 
 
-输入：fastq
+Input: fastq
 
-输出：somatic_mut.xlsx/tsv,SV,CNV,QC metrics...
+Output: somatic_mut.xlsx/tsv, SV, CNV, QC metrics...
 
-使用方法：
+Instructions:
 	perl $0 -t <tumor name> -t1 <tumor R1> -t2 <tumor R2> -n <normal name> -n1 <normal R1> -n2 <normal R2> -b <interval.bed>
 
-默认提交到cn-medium分区，如果没有资源了，你可以指定作业提交到cn-fast，如下所示：
+By default, it is submitted to the cn-medium partition. If there is no resource, you can specify the job to submit to cn-fast as follows:
 	perl $0 -t <tumor name> -t1 <tumor R1> -t2 <tumor R2> -n <normal name> -n1 <normal R1> -n2 <normal R2> -b <interval.bed> -part cn-fast
 
-如果你想在比对前，对fastq文件做一个trimming，可以这样：
+If you want to do a trimming of the fastq file before the comparison, you can do this:
 	perl $0 -t <tumor name> -t1 <tumor R1> -t2 <tumor R2> -n <normal name> -n1 <normal R1> -n2 <normal R2> -b <interval.bed> -trim 1
 
 Last Updated:2017/12/25
 
-如果使用过程中发生任何问题，请联系yanghao\@eulertechnology.com
+If any problems occur during use, please contact yanghao\@eulertechnology.com
 
 ---------------------------------------------------------
 
@@ -68,7 +68,7 @@ unless($tumor && $t1 && -e $t1 && $t2 && -e $t2 && $normal && $n1 && -e $n1 && $
 $bed ||= '/gpfs/users/yanghao/project/shi-jian-zhi-ping/t_n_20171030/illumina/target.bed';
 $part ||= 'cn-medium';
 my @partition = qw/cn-fast cn-medium/;
-die "只能提交到SLURM作业调度系统的cn-fast或者cn-medium分区上\n" unless $part ~~ @partition;
+die "Can only be submitted to the cn-fast or cn-medium partition of the SLURM job scheduling system\n" unless $part ~~ @partition;
 
 my $account = $part eq 'cn-medium' ? 'cnm' : 'cnf';
 my $path = getcwd;
